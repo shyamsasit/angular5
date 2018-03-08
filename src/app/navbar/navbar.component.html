@@ -1,0 +1,176 @@
+<!--Main Navigation-->
+
+
+<!--Navbar-->
+<mdb-navbar style="position: absolute;padding: 0px;top: 0;right: 0;left: 0;" SideClass="navbar  navbar-expand-lg navbar-dark  scrolling-navbar transparent"
+    [containerInside]="true">
+    <logo>
+        <a class="logo navbar-brand waves-light" mdbRippleRadius href="#"><strong>SHYAM</strong></a>
+    </logo>
+    <links>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item waves-light" mdbRippleRadius>
+                <a class="nav-link" routerLink="/">Home</a>
+            </li>
+            <li class="nav-item waves-light" [routerLinkActive]="['active']" mdbRippleRadius>
+                <a class="nav-link" href="#about">About Me</a>
+            </li>
+            <li class="nav-item waves-light" [routerLinkActive]="['active']" mdbRippleRadius>
+                <a class="nav-link"  pageScroll href="#scroll_to_contact">Contact</a>
+            </li>
+              <li class="nav-item waves-light" [routerLinkActive]="['active']" mdbRippleRadius>
+                    <a class="nav-link" routerLink="/blog" pageScroll  href="#blog">Blog</a>
+                </li>
+            <li class="nav-item waves-light" [routerLinkActive]="['active']" mdbRippleRadius>
+                <a class="nav-link" (click)="formModal.show()" [hidden]="logined">Login</a>
+                <a class="nav-link" [hidden]="!logined">Hi {{user_name}}</a>
+
+            </li>
+        </ul>
+    </links>
+</mdb-navbar>
+
+
+<!--Main Navigation
+
+<button type="button" class="btn btn-primary waves-light" (click)="form.show()" mdbRippleRadius>Login / Register form</button>-->
+<!--Modal: Login / Register Form-->
+<div mdbModal #formModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog cascading-modal" role="document">
+        <!--Content-->
+        <div class="modal-content">
+
+            <!--Modal cascading tabs-->
+            <div class="modal-c-tabs">
+
+                <!-- Tab panels -->
+                <mdb-tabset #staticTabs [buttonClass]="'nav nav-tabs tabs-2 light-blue darken-3'" [contentClass]="''" class="tab-content">
+                    <!--Panel 7-->
+                    <mdb-tab class="tab-pane fade in show" [ngClass]="!activeRegister ?'active':''" id="panel7" role="tabpanel" heading="<i class='fa fa-user mr-1'></i> Login">
+                        <form #form="ngForm" (ngSubmit)="form.valid && login(form.value)">
+
+                            <!--Body-->
+                            <div class="modal-body mb-1">
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input mdbActive type="text" email id="email" name="email" #email="ngModel" ngModel class="form-control" required>
+                                    <label for="form22">Your email</label>
+                                    <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+
+                                        <div class="alert alert-danger" *ngIf="email.errors.required || email.errors.email">
+                                            Email is required!!! Please enter valid email.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input mdbActive type="password" id="password" name="password" #password="ngModel" ngModel class="form-control" required>
+                                    <label for="form23">Your password</label>
+                                    <div *ngIf="password.invalid && (password.dirty || password.touched)" >
+
+                                        <div class="alert alert-danger" *ngIf="password.errors.required">
+                                            Password is required.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-2">
+                                    <button type="submit" class="btn btn-info waves-light" mdbRippleRadius>Log in <i class="fa fa-sign-in ml-1"></i></button>
+                                </div>
+
+                            </div>
+                        </form>
+                    
+                            <div   [hidden]="!showmsgerror" class="alert alert-danger"> {{message}}</div>
+                            <div   [hidden]="!showmsgsuccess" class="alert alert-success"> {{message}}</div>
+                        
+                        <!--Footer-->
+                        <div class="modal-footer display-footer">
+                            <div class="options text-center text-md-right mt-1">
+                                <p>Not a member? <a href="#" (click)="activeRegisterModal()" class="blue-text">Sign Up</a></p>
+                                <p>Forgot <a href="#" class="blue-text">Password?</a></p>
+                            </div>
+                            <button type="button" #closeButton class="btn btn-outline-info ml-auto" data-dismiss="modal" (click)="formModal.hide()" mdbRippleRadius>Close</button>
+                        </div>
+
+                    </mdb-tab>
+                    <!--/.Panel 7-->
+
+                    <!--Panel 8-->
+                    <mdb-tab class="tab-pane fade in show" [ngClass]="activeRegister ?'active':''" id="panel8" role="tabpanel" heading="<i class='fa fa-user-plus mr-1'></i> Register">
+                        <!--Body-->
+                        <form  #form1="ngForm" (ngSubmit)="form1.valid &&register(form1.value)">
+                            <div class="modal-body">
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-envelope prefix"></i>
+                                    <input mdbActive type="email" email id="remail" name="remail" #emailControl="ngModel" data-error="wrong text" data-success="right text" ngModel class="form-control" required>
+                                    <label mdbActive for="remail">Your email</label>
+                                    <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)">
+
+                                        <div class="alert alert-danger" *ngIf="emailControl.errors.required || emailControl.errors.email">
+                                            Email is required!!! Please enter valid email.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-user prefix"></i>
+                                    <input mdbActive type="text" id="ruser_name" name="ruser_name" #nameControl="ngModel" data-error="wrong text" data-success="right text" ngModel class="form-control" required>
+                                    <label for="form24">User Name</label>
+                                    <div *ngIf="nameControl.invalid && (nameControl.dirty || nameControl.touched)">
+
+                                        <div class="alert alert-danger" *ngIf="nameControl.errors.required">
+                                            User Name is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input mdbActive type="password" id="rpassword" name="rpassword" #rpassword="ngModel" data-error="wrong text" data-success="right text" ngModel class="form-control" required>
+                                    <label for="form25">Your password</label>
+                                    <div *ngIf="rpassword.invalid && (rpassword.dirty || rpassword.touched)">
+
+                                        <div class="alert alert-danger" *ngIf="rpassword.errors.required">
+                                            Password is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="md-form form-sm">
+                                    <i class="fa fa-lock prefix"></i>
+                                    <input mdbActive type="password" id="rpasswordr" name="rpasswordr" #rpasswordr="ngModel" data-error="wrong text" data-success="right text" ngModel class="form-control" required>
+                                    <label for="form26">Repeat password</label>
+                                    <div *ngIf="rpasswordr.invalid && (rpasswordr.dirty || rpasswordr.touched)">
+
+                                        <div class="alert alert-danger" *ngIf="rpasswordr.errors.required">
+                                            Repeat Password is required.
+                                        </div>
+                                    </div>
+                                    <div class="alert alert-danger" *ngIf="rpasswordr.touched && rpasswordr.value != rpassword.value" class="alert alert-danger">
+                                        Repeat Password must be the same.
+                                    </div>
+                                </div>
+
+                                <div class="text-center form-sm mt-2">
+                                    <button type="submit" class="btn btn-info waves-light" mdbRippleRadius>Sign up <i class="fa fa-sign-in ml-1"></i></button>
+                                </div>
+
+                            </div>
+                        </form>
+                        <!--Footer-->
+                        <div class="modal-footer">
+                            <div class="options text-right">
+                                <p class="pt-1">Already have an account? <a href="#" (click)="activeLogin()" class="blue-text">Log In</a></p>
+                            </div>
+                            <button type="button" class="btn btn-outline-info ml-auto" data-dismiss="modal" (click)="form.hide()" mdbRippleRadius>Close</button>
+                        </div>
+                    </mdb-tab>
+                    <!--/.Panel 8-->
+                </mdb-tabset>
+
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!--Modal: Login / Register Form-->

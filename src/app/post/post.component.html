@@ -1,0 +1,77 @@
+<app-carousel></app-carousel>
+<div class="clearfix"></div>
+<div class="container">
+    <!--Blog v.1-->
+    <section class="section pb-3 text-center text-lg-left">
+
+        <!--Section heading-->
+        <h1 id="blog" class="section-heading h1 pt-4">Recent posts</h1>
+        <!--Section description-->
+        <p class="section-description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+        <!--Grid row-->
+        <ng-container *ngFor="let post of posts;let o = odd; let e = even;let i = index; let last = last">
+            <div class="row">
+
+
+                <div *ngIf="i%2===0" [ngClass]="{'col-lg-7 col-xl-6 o': o,'col-lg-5 col-xl-4 offset-xl-1 pb-3 e': e}">
+
+                    <div class="view overlay hm-white-slight waves-light" mdbRippleRadius>
+                        <img src="http://localhost:8080/uploads/{{post.image}}" class="img-fluid  z-depth-1-half rounded" alt="Sample image for first version of blog listing">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div *ngIf="i%2===0" [ngClass]="{'col-lg-5 col-xl-4 offset-xl-1 pb-3': o,'col-lg-7 col-xl-6': e}">
+
+                    <a href="" class="indigo-text">
+                        <h6 class="font-bold pb-1">
+                            <i *ngIf="post.category=='Food'" class="fa fa-cutlery"></i>
+                            <i *ngIf="post.category=='Lifestyle'" class="fa fa-image"></i>
+                            <i *ngIf="post.category=='Travel'" class="fa fa-suitcase"></i> {{post.category}}
+                        </h6>
+                    </a>
+                    <h4 class="mb-4"><strong>{{post.post_title}}</strong></h4>
+                    <p>{{post.post_description}}</p>
+                    <p>by <a><strong>{{post.author_name}}</strong></a>, {{ post.date | date:'MM/dd/yyyy' }},</p>
+                    <a class="btn btn-success mb-3 waves-light" mdbRippleRadius>Read more</a>
+                </div>
+                
+                <div *ngIf="i%2!=0" [ngClass]="{'col-lg-5 col-xl-4 offset-xl-1 pb-3': o,'col-lg-7 col-xl-6': e}">
+                    <a href="" class="indigo-text">
+                        <h6 class="font-bold pb-1">
+                            <i *ngIf="post.category=='Food'" class="fa fa-cutlery"></i>
+                            <i *ngIf="post.category=='Lifestyle'" class="fa fa-image"></i>
+                            <i *ngIf="post.category=='Travel'" class="fa fa-suitcase"></i> {{post.category}}
+                        </h6>
+                    </a>
+                    <h4 class="mb-4"><strong>{{post.post_title}}</strong></h4>
+                    <p>{{post.post_description}}</p>
+                    <p>by <a><strong>{{post.author_name}}</strong></a>, {{ post.date | date:'MM/dd/yyyy' }},</p>
+                    <a class="btn btn-success mb-3 waves-light" mdbRippleRadius>Read more</a>
+                </div>
+
+                <div *ngIf="i%2!=0" [ngClass]="{'col-lg-7 col-xl-6 o': o,'col-lg-5 col-xl-4 offset-xl-1 pb-3 e': e}">
+
+                    <div class="view overlay hm-white-slight waves-light" mdbRippleRadius>
+                        <img src="http://localhost:8080/uploads/{{post.image}}" class="img-fluid  z-depth-1-half rounded" alt="Sample image for first version of blog listing">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
+                    </div>
+                </div>
+
+
+            </div>
+            <hr *ngIf="!last" class="hr-width mb-5 mt-5 pb-3">
+        </ng-container>
+        <!--Grid row-->
+
+
+    </section>
+    <!--Section: Blog v.1-->
+</div><div class="clearfix"></div>
+<app-footer></app-footer>
